@@ -34,7 +34,7 @@ export function useNasaData(initialDate) {
         apiData.data = apiData.data.map(item => ({
           ...item,
           distanceFromEarth: distanceBetweenObjects(item, { lat: 0, lon: 0 })
-        })
+        }));
       }
       setData(apiData);
       storageService.setData(apiData);
@@ -56,3 +56,6 @@ export function useNasaData(initialDate) {
     fetchDataForDate
   };
 }
+export default {
+  useNasaData
+};

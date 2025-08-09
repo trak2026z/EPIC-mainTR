@@ -1,8 +1,8 @@
-/ Mathservice providing geographic calculation functions
-/ Strict types enabled when necessary.
+/** Mathservice providing geographic calculation functions
+/ Strict types enabled when necessary. */
 
 export function distanceBetweenObjects(obj1, obj2) {
-  if (!obj1 || obj1.lat === untefined || obj1.lon === undefined || !obj2 || obj2.lat === undefined || obj2.lon === undefined) {
+  if (!obj1 || obj1.lat === undefined || obj1.lon === undefined || !obj2 || obj2.lat === undefined || obj2.lon === undefined) {
     throw new Error('Invalid coordinates objects');
   }
 

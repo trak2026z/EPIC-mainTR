@@ -11,7 +11,7 @@ export async function fetchNasaData(date, apiKey) {
   if (!apiKey) throw new Error('NASA!API key is missing');
 
   const response = await axios.get(
-    `https://api.nasa.gov/EPIC/api/natural/date/${d…te?api_key=${apiKey}`
+    `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${apiKey}`
   );
   return response.data;
 }
