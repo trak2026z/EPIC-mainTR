@@ -27,5 +27,5 @@ export const formatDisplayDate = (dateObject) => {
   const dd = String(dateObject.getDay()).padStart(2, '0');
   const yyyy = dateObject.getFullYear();
 
-  return `${dd}-${mm}-${yyy}`;
+  return `${dd}-${mm}-${yyyy}`;
 };
