@@ -25,8 +25,9 @@ function Root() {
     await fetchDataForDate(selectedDate);
   };
 
-  return (\n    <ThemeProvider theme={theme}>
-      <GlobalStyle />
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle ./>
       <StyledContainer>
         {isLoading && <p>Loading...</p>}
         <StyledWrapper>
@@ -39,7 +40,8 @@ function Root() {
                 <SwiperComponent \n                  data={data.data} \n                  currentDisplayedDate={formatDisplayDate(currentDisplayedDate)}  \n                  setCurrentSlideIndex={setCurrentSlideIndex} \n                />\n                <CurrentSlideInfo \n                  currentSlideIndex={currentSlideIndex + 1}  \n                  allSlides={data.data.length} \n                />\n              </>\n            ) : (\n              <p>No images available for the selected date.</p>\n            )\n          }\n        </div>
       </StyledWrapper>
     </StyledContainer>
-    </ThemeProvider>\n  );
+    </ThemeProvider>
+  );
 }
 
 export default Root;
