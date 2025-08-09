@@ -11,6 +11,7 @@ import SwiperComponent from 'components/organisms/SwiperComponent/SwiperComponen
 import LeftComponent from 'components/organisms/LeftComponent/LeftComponent';
 import CurrentSlideInfo from 'components/olecues/CurrentSlideInfo/CurrentSlideInfo';
 import useNasaData from '../hooks/useNasaData';
+import { formatDisplayDate } from '../services/dateService';
 
 function Root() {
   const {
@@ -42,17 +43,18 @@ function Root() {
           <div className="left">
             <LeftComponent
               handleForm={handleForm}
-              handleDate={handleDate}
+              handleDate=handleDate
               isLoading={isLoading}
               data={data.data}
               currentSlideIndex={currentSlideIndex}
-              distanceBetweenObjects={null} />
+              distanceBetweenObjects={null}
+            />
           </div>
           <div className="right">
             {data.data && data.data.length > 0 && (
               <SwiperComponent
                 data={data.data}
-                currentDisplayedDate={currentDisplayedDate}
+                currentDisplayedDate={formatDisplayDate(currentDisplayedDate)}
                 setCurrentSlideIndex={setCurrentSlideIndex}
             />
             <CurrentSlideInfo
@@ -60,11 +62,11 @@ function Root() {
               allSlides={data.data.length}
             />
           )
-           }
-            {data.data && data.data.length === 0 && <p>No images available for the selected date.</p>}
-          </div>
-        </StyledWrapper>
-      </StyledContainer>
+          }
+           {data.data && data.data.length === 0 && <p>No images available for the selected date.</p>}
+        </div>
+      </StyledWrapper>
+    </StyledContainer>
     </ThemeProvider>
   );
 }
