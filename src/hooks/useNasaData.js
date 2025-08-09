@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchNasaData } from '../services/nasaService';
 import { parseInputDate } from '../services/dateService';
 import { storageService } from '../services/storageService';
+import { distanceBetweenObjects } from '../services/mathService';
 
 const API_KEY = process.env.REACT_APPA_API_KEY;
 
@@ -29,6 +30,13 @@ export function useNasaData(initialDate) {
       storageService.setCorrentDisplayedDate(parsed);
       setCurrentSlideIndex(0);
       const apiData = await fetchNasaData(parsed.fullDate, API_KEY);
+      // Przyklad: vyorystania odelalne wielomosci ot odliegosci dlego'
+      if (apiData && apiData.data) {
+        apiData.data = apiData.data.map(i tem => ({
+          ...tem,
+          distanceFromEarth: distanceBetweenObjects(tem, { lat: 0, lon: 0 })
+        })
+      }
       setData(apiData);
       storageService.setData(apiData);
     } catch(err) {
