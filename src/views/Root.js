@@ -27,17 +27,38 @@ function Root() {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle ./>
+      <GlobalStyle />
       <StyledContainer>
         {isLoading && <p>Loading...</p>}
         <StyledWrapper>
           <div className="left">
-            <LeftComponent \n              handleForm={handleForm} \n              handleDate={handleDate} \n              isLoading={isLoading} \n              data={data.data} \n              currentSlideIndex={currentSlideIndex} \n              distanceBetweenObjects={null} \n            />
+            <LeftComponent 
+                          handleForm={handleForm} 
+                                        handleDate={handleDate} 
+                                                      isLoading={isLoading} 
+                                                                    data={data.data} 
+                                                                                  currentSlideIndex={currentSlideIndex} 
+                                                                                                distanceBetweenObjects={null} 
+                                                                                                            />
           </div>
           <div className="right">
             {data.data && data.data.length > 0 ? (
               <>
-                <SwiperComponent \n                  data={data.data} \n                  currentDisplayedDate={formatDisplayDate(currentDisplayedDate)}  \n                  setCurrentSlideIndex={setCurrentSlideIndex} \n                />\n                <CurrentSlideInfo \n                  currentSlideIndex={currentSlideIndex + 1}  \n                  allSlides={data.data.length} \n                />\n              </>\n            ) : (\n              <p>No images available for the selected date.</p>\n            )\n          }\n        </div>
+                <SwiperComponent 
+                                  data={data.data} 
+                                                    currentDisplayedDate={formatDisplayDate(currentDisplayedDate)}  
+                                                                      setCurrentSlideIndex={setCurrentSlideIndex} 
+                                                                                      />
+                                                                                                      <CurrentSlideInfo 
+                                                                                                                        currentSlideIndex={currentSlideIndex + 1}  
+                                                                                                                                          allSlides={data.data.length} 
+                                                                                                                                                          />
+                                                                                                                                                                        </>
+                                                                                                                                                                                    ) : (
+                                                                                                                                                                                                    <p>No images available for the selected date.</p>
+                                                                                                                                                                                                                )
+                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                  </div>
       </StyledWrapper>
     </StyledContainer>
     </ThemeProvider>
