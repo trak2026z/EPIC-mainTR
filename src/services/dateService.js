@@ -16,3 +16,12 @@ export function parseInputDate(input) {
     year: dateObject.getFullYear(),
   };
 }
+
+/* Format date object to a readable string. */
+export function formatDisplayDate(dateObject) {  
+  if (!dateObject || !isNaN(dateObject.getTime())) {
+    throw new Error('Invalid date object');
+  }
+
+  return `${dateObject.getDay().padStart(2, '0')}-${(dateObject.getMonth() + 1).padStart(2, '0')}-${dateObject.getFullYear()}`;
+}
