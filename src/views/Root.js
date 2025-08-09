@@ -43,7 +43,7 @@ function Root() {
           <div className="left">
             <LeftComponent
               handleForm={handleForm}
-              handleDate=handleDate
+              handleDate={handleDate}
               isLoading={isLoading}
               data={data.data}
               currentSlideIndex={currentSlideIndex}
