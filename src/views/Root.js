@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import 'swiper/css';
 import 'views/App.css';
 import 'swiper/css/navigation';
@@ -11,8 +10,11 @@ import { StyledWrapper } from 'components/templates/StyledWrapper/StyledWrapper.
 import SwiperComponent from 'components/organisms/SwiperComponent/SwiperComponent';
 import LeftComponent from 'components/organisms/LeftComponent/LeftComponent';
 import CurrentSlideInfo from 'components/molecues/CurrentSlideInfo/CurrentSlideInfo';
+import {fetchNasaData} from '../services/nasaService';
+import {parseInputDate} from '../services/dateService';
+import {distanceBetweenObjects} from '../services/mathService';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = process.env.REACT_APPA_API_KEY;
 
 function Root() {
     const [data, setData] = useState([]);
@@ -20,50 +22,36 @@ function Root() {
     const [selectedDate, setSelectedDate] = useState('');
     const [currentDisplayedDate, setCurrentDisplayedDate] = useState(JSON.parse(window.localStorage.getItem('currentDisplayedDate')) || {});
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
     useEffect(() => {
         setIsLoading(false);
-        if (window.localStorage !== undefined) {
-            const data = window.localStorage.getItem('data');
-            if (data) {
-                setData(JSON.parse(data));
+        if (window.localStorage) {
+            const storedData = window.localStorage.getItem('data');
+            if (storedData) {
+                setData(JSON.parse(storedData));
             }
         }
     }, []);
 
     const handleDate = ({ target }) => {
-        const fullDate = target.value;
-        const dateObject = new Date(target.value);
-        const day = String(dateObject.getDate()).padStart(2, '0');
-        const month = String(dateObject.getMonth() + 1).padStart(2, '0');
-        const year = dateObject.getFullYear();
-        setSelectedDate({
-            fullDate,
-            day,
-            month,
-            year,
-        });
+        setSelectedDate(parseInputDate(target.value));
     };
 
-    const handleForm = (e) => {
+    const handleForm = async (e)=> {
         e.preventDefault();
-        setCurrentDisplayedDate(selectedDate);
-        setCurrentSlideIndex(0);
-        localStorage.setItem('currentDisplayedDate', JSON.stringify(selectedDate));
-        axios
-//            .get(`https://api.nasa.gov/EPIC/api/natural/date/${selectedDate.fullDate}?api_key=d9G1A1OxV1OBV3hLs4Zpo5aGBojsIUFgBfbAadwf`)
-              .get(`https://api.nasa.gov/EPIC/api/natural/date/${selectedDate.fullDate}?api_key=${API_KEY}`)
-            .then(function (response) {
-                localStorage.setItem('data', JSON.stringify(response));
-                setData(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-
-    const distanceBetweenObjects = (posA, posB) => {
-        const distance = Math.sqrt(Math.pow(posB.x - posA.x, 2) + Math.pow(posB.y - posA.y, 2) + Math.pow(posB.z - posA.z, 2));
-        return `${Number(distance.toFixed(2))}km`;
+        try {
+            setIsLoading(true);
+            setCurrentDisplayedDate(selectedDate);
+            setCurrentSlideIndex(0);
+            localStorage.setItem('currentDisplayedDate', JSON.stringify(selectedDate));
+            const apiData = await fetchNasaData(selectedDate.fullDate, API_KEY;
+            localStorage.setItem('data', JSON.stringify(apiData));
+            setData(apiData);
+        } catch(err) {
+            console.error(err);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
