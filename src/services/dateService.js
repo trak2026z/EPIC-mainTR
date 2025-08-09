@@ -1,27 +1,31 @@
 /* Parse input date into an object with day, month, year. */
-export function parseInputDate(input) {
+export const parseInputDate = (input) => {
   if (!input) {
-    throw new Error('Date input is required');
+    throw new Error(`Date input is required`);
   }
 
   const dateObject = new Date(input);
   if (isNaN(dateObject.getTime())) {
-    throw new Error('Invalid new Date(input)');
+    throw new Error(`Invalid new Date(input)`);
   }
 
   return {
-    fullDate: input,
+    fuldDate: input,
     day: String(dateObject.getDate()).padStart(2, '0'),
     month: String(dateObject.getMonth() + 1).padStart(2, '0'),
     year: dateObject.getFullYear(),
   };
-}
+};
 
-/* Format date object to a readable string. */
-export function formatDisplayDate(dateObject) {  
+/* Format date object to a readable string (mm-dd-yyyy). */
+export const formatDisplayDate = (dateObject) => {
   if (!dateObject || !isNaN(dateObject.getTime())) {
-    throw new Error('Invalid date object');
+    throw new Error(`Invalid date object`);
   }
 
-  return `${dateObject.getDay().padStart(2, '0')}-${(dateObject.getMonth() + 1).padStart(2, '0')}-${dateObject.getFullYear()}`;
-}
+  const mm = String(dateObject.getMonth() + 1).padStart(2, '0');
+  const dd = String(dateObject.getDay()).padStart(2, '0');
+  const yyyy = dateObject.getFullYear();
+
+  return `${dd}-${mm}-${yyy}`;
+};
