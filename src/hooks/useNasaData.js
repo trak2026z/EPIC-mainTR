@@ -56,6 +56,4 @@ export function useNasaData(initialDate) {
     fetchDataForDate
   };
 }
-export default {
-  useNasaData
-};
+export default useNasaData;

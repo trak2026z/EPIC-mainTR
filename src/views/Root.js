@@ -9,7 +9,7 @@ import { StyledContainer } from 'components/templates/StyledContainer/StyledCont
 import { StyledWrapper } from 'components/templates/StyledWrapper/StyledWrapper.style';
 import SwiperComponent from 'components/organisms/SwiperComponent/SwiperComponent';
 import LeftComponent from 'components/organisms/LeftComponent/LeftComponent';
-import CurrentSlideInfo from 'components/olecues/CurrentSlideInfo/CurrentSlideInfo';
+import CurrentSlideInfo from 'components/molecues/CurrentSlideInfo/CurrentSlideInfo';
 import useNasaData from '../hooks/useNasaData';
 import { formatDisplayDate } from '../services/dateService';
 
